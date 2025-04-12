@@ -1,0 +1,26 @@
+apiVersion: skaffold/v4beta6
+kind: Config
+metadata:
+  name: mizo-sample-rails-app # 識別名なので、好きな名前でOK。アプリ名が無難
+
+build:
+  artifacts:
+    - image: mizo-sample-rails-app # ビルドして生成するDockerイメージ名。Deploymentのimage:と一致する必要がある。
+      context: . 
+      docker:
+        dockerfile: Dockerfile.dev # 使用するDockerfileの名前
+  local:
+    push: false  # ローカルKubernetes（minikubeやdocker-desktop）なら false
+
+manifests:
+  rawYaml:
+    - k8s/app-deployment.yaml
+    - k8s/app-service.yaml
+    - k8s/db-pod.yaml
+    - k8s/db-service.yaml
+
+portForward:
+  - resourceType: service # ポートフォワードの対象リソースの種類(ここではKubernetesのService)
+    resourceName: rails-service # 対象のリソース名(rails-serviceが今回それにあたる)
+    port: 80 # Kubernetes上のServiceの公開ポート番号
+    localPort: 3000 # ローカルPCで使うポート(ブラウザでアクセスするlocalhost:3000に対応)

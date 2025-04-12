@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rails-app 
+spec:
+  replicas: 1 # Podのレプリカ数（1つ起動）
+  selector:
+    matchLabels:
+      app: rails-app # このラベルと一致するPodを管理対象に
+  template:
+    metadata:
+      labels:
+        app: rails-app # Podに付与するラベル（Serviceと連携）
+    spec:
+      containers:
+        - name: rails
+          image: mizo-sample-rails-app:dev # 使用するDockerイメージ
+          ports:
+            - containerPort: 3000 # コンテナ内で開放するポート（Rails）
+          env: # DB接続用の環境変数と値(nameとvalue)
+            - name: DB_HOST
+              value: mariadb
+            - name: DB_USERNAME
+              value: root
+            - name: DB_PASSWORD
+              value: password

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mariadb
+  labels:
+    app: mariadb # Service と紐づけるためのラベル
+spec:
+  containers:
+    - name: mariadb
+      image: mariadb:10.11 # 使用するMariaDBのバージョン
+      env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: password  # rootユーザーのパスワード
+        - name: MYSQL_DATABASE
+          value: app_development
+      ports:
+        - containerPort: 3306
