@@ -17,4 +17,4 @@ RUN bundle install
 
 COPY . .
 
-CMD ["bin/rails", "server", "-b", "0.0.0.0"]
+CMD ["bundle", "exec", "foreman", "start", "-f", "Procfile.dev"]
