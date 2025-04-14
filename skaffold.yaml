@@ -9,6 +9,16 @@ build:
       context: . 
       docker:
         dockerfile: Dockerfile.dev # 使用するDockerfileの名前
+      sync:
+        manual: # 以下に該当するローカルファイルを変更したときにPod内にコピーして即時反映
+         - src: "app/**/*.rb"
+           dest: "." 
+         - src: "app/views/**/*.erb"
+           dest: "."
+         - src: "app/assets/stylesheets/**/*.scss"
+           dest: "."
+         - src: "config/**/*.rb"
+           dest: "."
   local:
     push: false  # ローカルKubernetes（minikubeやdocker-desktop）なら false
 
