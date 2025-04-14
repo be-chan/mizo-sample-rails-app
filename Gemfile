@@ -49,6 +49,12 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Test
+  gem "factory_bot_rails"
+  gem "faker"
+  gem "rspec-rails"
+  gem "simplecov"
 end
 
 group :development do
@@ -67,8 +73,5 @@ end
 # add
 # bootstrap
 gem "bootstrap", "~> 5.3"
-
 # cssコンパイラ
 gem "dartsass-rails"
-
-gem "mini_racer"
